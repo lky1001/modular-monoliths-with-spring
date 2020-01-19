@@ -39,6 +39,7 @@ bootJar {
 
 dependencies {
     implementation project (':buildingblocks')
+    implementation project (':user')
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
