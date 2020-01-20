@@ -1,4 +1,4 @@
 rootProject.name = 'modular'
 include 'application'
 include 'buildingblocks'
-include 'user'
+include 'user-service'

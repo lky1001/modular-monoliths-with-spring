@@ -1,9 +1,12 @@
-package com.tistory.lky1001.application.api.modules.users;
+package com.tistory.lky1001.api.modules.users;
 
 import com.tistory.lky1001.user.application.authorization.getuserpermissions.GetUserPermissionsQuery;
 import com.tistory.lky1001.user.application.authorization.getuserpermissions.UserPermissionsDto;
 import com.tistory.lky1001.user.application.contracts.IUserModule;
 import com.tistory.lky1001.user.application.users.createuser.CreateUserCommand;
+import com.tistory.lky1001.user.application.users.createuser.CreateUserResult;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +23,12 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(@RequestBody CreateUserRequest createUserRequest) {
-        userModule.executeCommand(new CreateUserCommand(createUserRequest.getEmail(),
+    public ResponseEntity createUser(@RequestBody CreateUserRequest createUserRequest) {
+        CreateUserResult createUserResult = (CreateUserResult) userModule.executeCommand(new CreateUserCommand(createUserRequest.getEmail(),
                 createUserRequest.getPassword(),
                 createUserRequest.getName()));
+
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     public void getUserPermissions() {

@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    platform: h2
+    initialization-mode: always
+    driver-class-name: org.h2.Driver
+    username: sa
+    url: jdbc:h2:mem:testdb
+    password:
+  h2:
+    console:
+      enabled: true
+security:
+  salt: B1B9A19C3F1A9QQO9REQ3FV928RDS#AA

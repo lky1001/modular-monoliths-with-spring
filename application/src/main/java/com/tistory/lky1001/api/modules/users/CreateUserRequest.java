@@ -1,4 +1,4 @@
-package com.tistory.lky1001.application.api.modules.users;
+package com.tistory.lky1001.api.modules.users;
 
 import lombok.Getter;
 import lombok.Setter;

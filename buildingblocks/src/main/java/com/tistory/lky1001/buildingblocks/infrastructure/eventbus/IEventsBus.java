@@ -1,4 +1,4 @@
-package com.tistory.lky1001.buildingblocks.infrastructure;
+package com.tistory.lky1001.buildingblocks.infrastructure.eventbus;
 
 public interface IEventsBus {
 
