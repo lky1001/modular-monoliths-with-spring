@@ -1,4 +1,4 @@
-package com.tistory.lky1001.api.configuration.web;
+package com.tistory.lky1001.configuration.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

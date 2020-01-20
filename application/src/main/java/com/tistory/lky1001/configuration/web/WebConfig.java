@@ -1,4 +1,4 @@
-package com.tistory.lky1001.api.configuration.web;
+package com.tistory.lky1001.configuration.web;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

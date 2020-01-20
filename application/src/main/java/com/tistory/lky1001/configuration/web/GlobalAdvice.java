@@ -1,4 +1,4 @@
-package com.tistory.lky1001.api.configuration.web;
+package com.tistory.lky1001.configuration.web;
 
 import com.tistory.lky1001.buildingblocks.domain.DomainValidationException;
 import lombok.extern.slf4j.Slf4j;
