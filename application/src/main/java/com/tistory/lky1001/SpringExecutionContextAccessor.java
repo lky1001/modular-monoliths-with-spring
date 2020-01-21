@@ -1,7 +1,12 @@
 package com.tistory.lky1001;
 
 import com.tistory.lky1001.buildingblocks.application.IExecutionContextAccessor;
+import com.tistory.lky1001.configuration.security.CustomUserDetails;
+import lombok.val;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.UUID;
 
@@ -9,8 +14,32 @@ import java.util.UUID;
 public class SpringExecutionContextAccessor implements IExecutionContextAccessor {
 
     @Override
-    public int getUserId() {
-        return 0;
+    public Long getUserId() {
+        val authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null) {
+            return null;
+        }
+
+        val principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof CustomUserDetails) {
+            return ((CustomUserDetails) principal).getId();
+        }
+
+        return null;
+    }
+
+    @Override
+    public String getAuthorization() {
+        val currentRequestAttributes = RequestContextHolder.currentRequestAttributes();
+
+        if (currentRequestAttributes instanceof ServletRequestAttributes) {
+            return ((ServletRequestAttributes) currentRequestAttributes)
+                    .getRequest().getHeader("Authorization");
+        }
+
+        return null;
     }
 
     @Override

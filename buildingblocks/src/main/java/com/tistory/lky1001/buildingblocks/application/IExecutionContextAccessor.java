@@ -4,7 +4,9 @@ import java.util.UUID;
 
 public interface IExecutionContextAccessor {
 
-    int getUserId();
+    Long getUserId();
+
+    String getAuthorization();
 
     UUID getCorrelationId();
 

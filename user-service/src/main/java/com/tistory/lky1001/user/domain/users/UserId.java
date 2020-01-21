@@ -2,13 +2,13 @@ package com.tistory.lky1001.user.domain.users;
 
 public class UserId {
 
-    private int userId;
+    private long userId;
 
-    public UserId(int userId) {
+    public UserId(long userId) {
         this.userId = userId;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return this.userId;
     }
 }
