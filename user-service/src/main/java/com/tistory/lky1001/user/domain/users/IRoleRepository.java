@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Transactional
+@Transactional("userTransactionManager")
 public interface IRoleRepository extends CrudRepository<Role, Integer> {
 
     @Query("select * from role where name = :roleName")

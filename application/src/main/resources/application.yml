@@ -1,22 +1,18 @@
+server:
+  port: 8080
 spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
   datasource:
-    type: org.apache.commons.dbcp2.BasicDataSource
-    url: jdbc:mysql://localhost:3306/users
-    username: root
-    password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    dbcp2:
-      initial-size: 2
-      max-total: 2
-      max-idle: 2
-      min-idle: 2
-      max-wait-millis: 10000
-      validation-query: SELECT 1
-      test-on-borrow: true
-      test-while-idle: true
-      time-between-eviction-runs-millis: 300000
-      num-tests-per-eviction-run: 6
-      min-evictable-idle-time-millis: -1
+    hikari:
+      user:
+        username: root
+        password: 1234
+        jdbc-url: jdbc:mysql://localhost:3306/users
+      sns:
+        username: root
+        password: 1234
+        jdbc-url: jdbc:mysql://localhost:3306/sns
 security:
   oauth2:
     resource:

@@ -23,7 +23,7 @@ public class CreateUserCommandService implements ICommandService<CreateUserComma
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(value = "userTransactionManager", rollbackFor = Exception.class)
     public CreateUserResult handle(CreateUserCommand command) {
         User user = this.userRepository.getByEmail(User.getEncodedEmail(command.getEmail()));
 

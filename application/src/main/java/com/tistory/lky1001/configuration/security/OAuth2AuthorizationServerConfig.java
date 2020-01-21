@@ -30,7 +30,7 @@ public class OAuth2AuthorizationServerConfig extends AuthorizationServerConfigur
 
     @Autowired
     public OAuth2AuthorizationServerConfig(UserDetailsService userDetailsService, AuthenticationManager authenticationManager,
-                                           @Qualifier("dataSource") DataSource dataSource) {
+            @Qualifier("userDataSource") DataSource dataSource) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.dataSource = dataSource;

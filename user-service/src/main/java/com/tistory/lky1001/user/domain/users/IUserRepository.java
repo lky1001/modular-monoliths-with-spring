@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Transactional
+@Transactional("userTransactionManager")
 public interface IUserRepository extends CrudRepository<User, Long> {
 
     @Query("select * from user where email = :email")

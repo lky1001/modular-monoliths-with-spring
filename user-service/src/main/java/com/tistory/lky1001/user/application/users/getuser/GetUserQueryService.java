@@ -6,6 +6,7 @@ import com.tistory.lky1001.user.application.users.UserDto;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
 import lombok.val;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GetUserQueryService implements IQueryService<GetUserQuery, GetUserResult> {
@@ -19,6 +20,7 @@ public class GetUserQueryService implements IQueryService<GetUserQuery, GetUserR
     }
 
     @Override
+    @Transactional(value = "userTransactionManager", readOnly = true)
     public GetUserResult handle(GetUserQuery query) {
         val userId = executionContextAccessor.getUserId();
 
