@@ -1,7 +1,10 @@
 # modular-monoliths-with-spring
 Modular Monoliths with DDD and Spring
 
-- reference : (modular-monolith-with-ddd)[https://github.com/kgrzybek/modular-monolith-with-ddd]
+- reference
+  - [Implemention Domain-Driven Design](https://books.google.co.kr/books/about/Implementing_Domain_Driven_Design.html?id=X7DpD5g3VP8C&source=kp_cover&redir_esc=y)
+  - [modular-monolith-with-ddd](https://github.com/kgrzybek/modular-monolith-with-ddd)
+  - [IDDD_Samples](https://github.com/VaughnVernon/IDDD_Samples)
 
 ## Table of contents
 
