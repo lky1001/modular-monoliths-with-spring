@@ -25,7 +25,7 @@ import java.nio.charset.Charset;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @ActiveProfiles("test")
@@ -83,5 +83,20 @@ public class GetUserAuthenticationQueryServiceTest {
         assertTrue(passwordManager.matches("test1234", getUserAuthenticationResult.getUserAuthentication().getPassword()));
         assertEquals(1, getUserAuthenticationResult.getUserAuthentication().getRoles().size());
         assertEquals("ROLE_USER", getUserAuthenticationResult.getUserAuthentication().getRoles().get(0).getName());
+    }
+
+    @Test
+    public void successGetUserAuthenticationFailure() {
+        User user = User.createUser("test1@gmail.com", "test1234", "test");
+
+        Role role = roleRepository.findById(2).orElseThrow();
+
+        user.addRole(role);
+
+        userRepository.save(user);
+
+        val getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test123@gmail.com"));
+
+        assertFalse(getUserAuthenticationResult.isAuthenticated());
     }
 }
