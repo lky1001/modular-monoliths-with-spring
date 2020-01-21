@@ -7,13 +7,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @Transactional("userTransactionManager")
 public interface IRoleRepository extends CrudRepository<Role, Integer> {
-
-    Optional<Role> findById(Integer id);
 
     @Query("select * from role where name = :roleName")
     Role getByRoleName(@Param("roleName") String roleName);

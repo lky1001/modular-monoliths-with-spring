@@ -19,7 +19,8 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJdbcRepositories(
-        basePackages = "com.tistory.lky1001.user"
+        basePackages = "com.tistory.lky1001.user",
+        repositoryFactoryBeanClass = UserJdbcRepositoryFactoryBean.class
 )
 public class DataSourceConfig extends AbstractJdbcConfiguration {
 

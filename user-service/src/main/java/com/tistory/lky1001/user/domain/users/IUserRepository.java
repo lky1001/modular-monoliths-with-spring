@@ -12,15 +12,6 @@ import java.util.Optional;
 @Transactional("userTransactionManager")
 public interface IUserRepository extends CrudRepository<User, Long> {
 
-    @Override
-    <S extends User> S save(S entity);
-
-    @Override
-    Optional<User> findById(Long id);
-
-    @Override
-    long count();
-
     @Query("select * from user where email = :email")
     User getByEmail(@Param("email") String encodedEmail);
 
