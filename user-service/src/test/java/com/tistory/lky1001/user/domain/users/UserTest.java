@@ -12,9 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 public class UserTest {
@@ -45,7 +46,8 @@ public class UserTest {
     public void successCreateNewUser() {
         user = User.createUser("test@gmail.com", "password", "myname");
 
-        assertEquals(aes256Cipher.encode("test@gmail.com"), user.getEncryptedEmail());
+        assertEquals(aes256Cipher.encode("test@gmail.com"), User.getEncodedEmail(user.getEmail()));
+        assertEquals("test@gmail.com", user.getEmail());
         assertTrue(passwordManager.matches("password", user.getEncryptedPassword()));
         assertEquals("myname", user.getName());
     }

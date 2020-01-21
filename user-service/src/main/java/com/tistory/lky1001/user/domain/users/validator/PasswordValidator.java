@@ -1,9 +1,8 @@
 package com.tistory.lky1001.user.domain.users.validator;
 
 import com.tistory.lky1001.buildingblocks.domain.DomainValidationException;
-import com.tistory.lky1001.user.application.contracts.EnumDomainMessage;
 import com.tistory.lky1001.buildingblocks.domain.IValidator;
-import org.springframework.util.StringUtils;
+import com.tistory.lky1001.user.application.contracts.EnumDomainMessage;
 
 public class PasswordValidator implements IValidator {
 

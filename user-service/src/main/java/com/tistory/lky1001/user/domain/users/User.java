@@ -84,6 +84,13 @@ public class User extends AggregateRoot<User> {
         this.setPassword(this.encryptedValue(changedPassword));
     }
 
+    private String decodeValue(String encodedTextEmail) {
+        String decodedValue = DomainRegistry.cipherManager()
+                .decode(encodedTextEmail);
+
+        return decodedValue;
+    }
+
     private String encodedValue(String plainTextEmail) {
         String encodedValue = DomainRegistry.cipherManager()
                 .encode(plainTextEmail);
@@ -98,6 +105,11 @@ public class User extends AggregateRoot<User> {
         return encryptedValue;
     }
 
+    public static String getEncodedEmail(String plainTextEmail) {
+        return DomainRegistry.cipherManager()
+                .encode(plainTextEmail);
+    }
+
     private void setCreated(Date created) {
         this.created = created;
     }
@@ -107,18 +119,18 @@ public class User extends AggregateRoot<User> {
     }
 
     public long getId() {
-        return id;
+        return this.id;
     }
 
-    public String getEncryptedEmail() {
-        return email;
+    public String getEmail() {
+        return decodeValue(this.email);
     }
 
     public String getEncryptedPassword() {
-        return password;
+        return this.password;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 }

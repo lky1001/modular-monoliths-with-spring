@@ -18,4 +18,7 @@ spring:
       num-tests-per-eviction-run: 6
       min-evictable-idle-time-millis: -1
 security:
+  oauth2:
+    resource:
+      id: test
   salt: A0A0A19C3F1A9QQO9REQ3FV928RDS#KK

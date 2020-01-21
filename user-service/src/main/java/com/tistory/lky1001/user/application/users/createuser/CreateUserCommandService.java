@@ -25,13 +25,13 @@ public class CreateUserCommandService implements ICommandService<CreateUserComma
     @Override
     @Transactional(rollbackFor = Exception.class)
     public CreateUserResult handle(CreateUserCommand command) {
-        User newUser = User.createUser(command.getEmail(), command.getPassword(), command.getName());
-
-        User user = this.userRepository.getByEmail(newUser.getEncryptedEmail());
+        User user = this.userRepository.getByEmail(User.getEncodedEmail(command.getEmail()));
 
         if (user != null) {
             throw new DomainValidationException(EnumDomainMessage.EMAIL_ALREADY_EXIST.getCode(), EnumDomainMessage.EMAIL_ALREADY_EXIST.getMsg());
         }
+
+        User newUser = User.createUser(command.getEmail(), command.getPassword(), command.getName());
 
         Role userRole = this.roleRepository.getByRoleName(SecurityRole.ROLE_USER);
 

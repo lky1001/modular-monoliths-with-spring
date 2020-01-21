@@ -1,7 +1,5 @@
 package com.tistory.lky1001.user.domain.users;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("user_authority")

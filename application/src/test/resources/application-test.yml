@@ -10,4 +10,7 @@ spring:
     console:
       enabled: true
 security:
+  oauth2:
+    resource:
+      id: test
   salt: B1B9A19C3F1A9QQO9REQ3FV928RDS#AA
