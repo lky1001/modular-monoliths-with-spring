@@ -40,7 +40,7 @@ public class GetUserServiceTest {
     private static boolean setUpIsDone = false;
 
     @Autowired
-    @Qualifier("dataSource")
+    @Qualifier("userDataSource")
     private DataSource dataSource;
 
     @Autowired
