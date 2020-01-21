@@ -1,8 +1,5 @@
-package com.tistory.lky1001.api.users;
+package com.tistory.lky1001.user.application.users;
 
-import lombok.Getter;
-
-@Getter
 public class UserDto {
 
     private long id;

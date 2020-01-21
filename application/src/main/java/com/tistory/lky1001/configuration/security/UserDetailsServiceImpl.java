@@ -1,7 +1,7 @@
 package com.tistory.lky1001.configuration.security;
 
-import com.tistory.lky1001.user.application.authorization.getuserauthentication.GetUserAuthenticationQuery;
-import com.tistory.lky1001.user.application.authorization.getuserauthentication.GetUserAuthenticationResult;
+import com.tistory.lky1001.user.application.authorization.GetUserAuthenticationQuery;
+import com.tistory.lky1001.user.application.authorization.GetUserAuthenticationResult;
 import com.tistory.lky1001.user.application.contracts.IUserModule;
 import lombok.val;
 import org.springframework.context.annotation.Primary;

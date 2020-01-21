@@ -5,9 +5,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional
 public interface IUserRepository extends CrudRepository<User, Long> {
 
     @Query("select * from user where email = :email")
     User getByEmail(@Param("email") String encodedEmail);
+
+    @Query("select * from user where id = :userId")
+    Optional<User> getById(@Param("userId") Long userId);
 }

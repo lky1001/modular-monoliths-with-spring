@@ -1,4 +1,4 @@
-package com.tistory.lky1001.user.application.authorization.getuserauthentication;
+package com.tistory.lky1001.user.application.authorization;
 
 import com.tistory.lky1001.user.application.configuration.queries.IQueryService;
 import com.tistory.lky1001.user.domain.users.IRoleRepository;
@@ -6,12 +6,12 @@ import com.tistory.lky1001.user.domain.users.IUserRepository;
 import com.tistory.lky1001.user.domain.users.Role;
 import com.tistory.lky1001.user.domain.users.User;
 import lombok.val;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class GetUserAuthenticationQueryService implements IQueryService<GetUserAuthenticationQuery, GetUserAuthenticationResult> {
 
     private IUserRepository userRepository;

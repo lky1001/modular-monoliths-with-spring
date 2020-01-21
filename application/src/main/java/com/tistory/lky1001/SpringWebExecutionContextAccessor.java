@@ -11,7 +11,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.util.UUID;
 
 @Component
-public class SpringExecutionContextAccessor implements IExecutionContextAccessor {
+public class SpringWebExecutionContextAccessor implements IExecutionContextAccessor {
 
     @Override
     public Long getUserId() {

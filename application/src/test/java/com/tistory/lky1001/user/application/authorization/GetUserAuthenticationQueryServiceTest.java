@@ -1,17 +1,17 @@
-package com.tistory.lky1001.user.application.authorization.getuserauthentication;
+package com.tistory.lky1001.user.application.authorization;
 
 import com.tistory.lky1001.Application;
-import com.tistory.lky1001.user.application.authorization.IPasswordManager;
+import com.tistory.lky1001.user.application.users.createuser.CreateUserCommand;
+import com.tistory.lky1001.user.application.users.createuser.CreateUserCommandService;
 import com.tistory.lky1001.user.domain.DomainRegistry;
 import com.tistory.lky1001.user.domain.users.IRoleRepository;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
-import com.tistory.lky1001.user.domain.users.Role;
-import com.tistory.lky1001.user.domain.users.User;
 import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
@@ -36,6 +36,7 @@ public class GetUserAuthenticationQueryServiceTest {
     private static boolean setUpIsDone = false;
 
     @Autowired
+    @Qualifier("dataSource")
     private DataSource dataSource;
 
     @Autowired
@@ -47,10 +48,13 @@ public class GetUserAuthenticationQueryServiceTest {
     @Autowired
     private IUserRepository userRepository;
 
+    private CreateUserCommandService createUserCommandService;
+
     private GetUserAuthenticationQueryService getUserAuthenticationQueryService;
 
     @Before
     public void setUp() throws SQLException {
+        createUserCommandService = new CreateUserCommandService(userRepository, roleRepository);
         getUserAuthenticationQueryService = new GetUserAuthenticationQueryService(userRepository, roleRepository);
 
         if (setUpIsDone) {
@@ -65,14 +69,9 @@ public class GetUserAuthenticationQueryServiceTest {
     }
 
     @Test
-    public void successCreateUserAndGetUserAuthentication() {
-        User user = User.createUser("test@gmail.com", "test1234", "test");
-
-        Role role = roleRepository.findById(2).orElseThrow();
-
-        user.addRole(role);
-
-        userRepository.save(user);
+    public void successCreateUserAndGetUserAuthenticationTest() {
+        CreateUserCommand createUserCommand = new CreateUserCommand("test@gmail.com", "test1234", "test");
+        createUserCommandService.handle(createUserCommand);
 
         val getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test@gmail.com"));
 
@@ -86,14 +85,9 @@ public class GetUserAuthenticationQueryServiceTest {
     }
 
     @Test
-    public void successGetUserAuthenticationFailure() {
-        User user = User.createUser("test1@gmail.com", "test1234", "test");
-
-        Role role = roleRepository.findById(2).orElseThrow();
-
-        user.addRole(role);
-
-        userRepository.save(user);
+    public void successGetUserAuthenticationFailureTest() {
+        CreateUserCommand createUserCommand = new CreateUserCommand("test1@gmail.com", "test1234", "test");
+        createUserCommandService.handle(createUserCommand);
 
         val getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test123@gmail.com"));
 

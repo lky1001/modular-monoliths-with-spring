@@ -1,4 +1,4 @@
-package com.tistory.lky1001.user.application.authorization.getuserauthentication;
+package com.tistory.lky1001.user.application.authorization;
 
 import com.tistory.lky1001.user.application.contracts.IResult;
 

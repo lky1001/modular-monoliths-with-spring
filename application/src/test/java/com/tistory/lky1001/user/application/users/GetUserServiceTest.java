@@ -1,16 +1,19 @@
 package com.tistory.lky1001.user.application.users;
 
 import com.tistory.lky1001.Application;
+import com.tistory.lky1001.buildingblocks.application.IExecutionContextAccessor;
 import com.tistory.lky1001.user.application.users.createuser.CreateUserCommand;
 import com.tistory.lky1001.user.application.users.createuser.CreateUserCommandService;
-import com.tistory.lky1001.user.application.users.createuser.CreateUserResult;
+import com.tistory.lky1001.user.application.users.getuser.GetUserQuery;
+import com.tistory.lky1001.user.application.users.getuser.GetUserQueryService;
 import com.tistory.lky1001.user.domain.users.IRoleRepository;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
-import com.tistory.lky1001.user.domain.users.Role;
-import com.tistory.lky1001.user.domain.users.User;
+import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,12 +29,13 @@ import java.nio.charset.Charset;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class})
-public class CreateUserCommandServiceTest {
+public class GetUserServiceTest {
 
     private static boolean setUpIsDone = false;
 
@@ -43,16 +47,23 @@ public class CreateUserCommandServiceTest {
     private ApplicationContext context;
 
     @Autowired
-    private IRoleRepository roleRepository;
+    private IUserRepository userRepository;
 
     @Autowired
-    private IUserRepository userRepository;
+    private IRoleRepository roleRepository;
+
+    @Mock
+    private IExecutionContextAccessor executionContextAccessor;
 
     private CreateUserCommandService createUserCommandService;
 
+    private GetUserQueryService getUserQueryService;
+
     @Before
     public void setUp() throws SQLException {
+        MockitoAnnotations.initMocks(this);
         createUserCommandService = new CreateUserCommandService(userRepository, roleRepository);
+        getUserQueryService = new GetUserQueryService(userRepository, executionContextAccessor);
 
         if (setUpIsDone) {
             return;
@@ -66,36 +77,17 @@ public class CreateUserCommandServiceTest {
     }
 
     @Test
-    public void successCreateUserRepoTest() {
-        User user = User.createUser("test@gmail.com", "test1234", "test");
+    public void successCreateUserAndGetUser() {
+        when(executionContextAccessor.getUserId()).thenReturn(1L);
 
-        Role role = roleRepository.findById(1).orElseThrow();
-
-        user.addRole(role);
-
-        userRepository.save(user);
-
-        User savedUser = userRepository.findById(user.getId()).orElseThrow();
-
-        Role savedUserRole = roleRepository.findById(savedUser.getRoleIds().iterator().next()).orElseThrow();
-
-        long userCount = userRepository.count();
-
-        assertEquals(1, role.getId());
-        assertEquals("ROLE_ADMIN", role.getName());
-        assertTrue(user.getId() > 0);
-        assertEquals("ROLE_ADMIN", savedUserRole.getName());
-        assertEquals("ROLE_ADMIN", savedUserRole.getName());
-        assertEquals("normal admin", savedUserRole.getDesc());
-        assertTrue(userCount > 0);
-    }
-
-    @Test
-    public void successCreateUserWithRoleTest() {
         CreateUserCommand createUserCommand = new CreateUserCommand("aaa@gmail.com", "12345678", "name");
+        createUserCommandService.handle(createUserCommand);
 
-        CreateUserResult createUserResult = createUserCommandService.handle(createUserCommand);
+        val getUserResult = getUserQueryService.handle(new GetUserQuery());
 
-        assertTrue(createUserResult.getResult());
+        assertNotNull(getUserResult.getUser());
+        assertEquals(1L, getUserResult.getUser().getId());
+        assertEquals("aaa@gmail.com", getUserResult.getUser().getEmail());
+        assertEquals("name", getUserResult.getUser().getName());
     }
 }
