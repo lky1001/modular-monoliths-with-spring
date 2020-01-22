@@ -16,7 +16,7 @@ public abstract class AggregateRoot<A extends AggregateRoot<A>> extends Abstract
 
     @Override
     public void addDomainEvents(IDomainEvent domainEvent) {
-        registerEvent(domainEvent);
+        super.registerEvent(domainEvent);
     }
 
     @Override

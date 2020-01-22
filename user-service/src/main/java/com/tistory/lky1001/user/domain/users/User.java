@@ -1,7 +1,9 @@
 package com.tistory.lky1001.user.domain.users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tistory.lky1001.user.application.contracts.AggregateRoot;
 import com.tistory.lky1001.user.domain.DomainRegistry;
+import com.tistory.lky1001.user.domain.users.event.UserCreatedDomainEvent;
 import com.tistory.lky1001.user.domain.users.validator.EmailValidator;
 import com.tistory.lky1001.user.domain.users.validator.NameValidator;
 import com.tistory.lky1001.user.domain.users.validator.PasswordValidator;
@@ -38,6 +40,8 @@ public class User extends AggregateRoot<User> {
         this.setName(name);
         this.protectPassword("", password);
         this.setCreated(new Date());
+
+        addDomainEvents(new UserCreatedDomainEvent(this));
     }
 
     public static User createUser(String email, String password, String name) {
@@ -51,11 +55,6 @@ public class User extends AggregateRoot<User> {
 
     public void addRole(Role role) {
         this.roles.add(new RoleRef(role.getId()));
-    }
-
-    public Set<Integer> getRoleIds() {
-        return this.roles.stream()
-                .map(RoleRef::getRoleId).collect(Collectors.toSet());
     }
 
     private void protectedEmail(String email) {
@@ -122,15 +121,31 @@ public class User extends AggregateRoot<User> {
         return this.id;
     }
 
+    @JsonIgnore
     public String getEmail() {
         return decodeValue(this.email);
     }
 
+    @JsonIgnore
     public String getEncryptedPassword() {
         return this.password;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    @JsonIgnore
+    public Set<Integer> getRoleIds() {
+        return this.roles.stream()
+                .map(RoleRef::getRoleId).collect(Collectors.toSet());
     }
 }
