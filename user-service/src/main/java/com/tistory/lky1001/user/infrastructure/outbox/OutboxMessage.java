@@ -16,4 +16,8 @@ public class OutboxMessage extends AbstractOutboxMessage {
         super(occurredOn, type, data);
         this.id = id;
     }
+
+    public String getId() {
+        return id;
+    }
 }

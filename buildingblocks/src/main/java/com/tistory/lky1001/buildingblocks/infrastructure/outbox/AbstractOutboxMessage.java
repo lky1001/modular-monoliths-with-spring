@@ -18,6 +18,18 @@ public abstract class AbstractOutboxMessage {
         this.data = data;
     }
 
+    public Date getOccurredOn() {
+        return occurredOn;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getData() {
+        return data;
+    }
+
     public Date getProcessedDate() {
         return processedDate;
     }

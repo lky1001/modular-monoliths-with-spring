@@ -37,6 +37,18 @@ CREATE TABLE IF NOT EXISTS `user_authority`
     PRIMARY KEY (`user_id`, `role_id`)
 );
 
+-- -----------------------------------------------------
+-- Table `users`.`outbox_message`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `outbox_message`
+(
+    `id`             CHAR(36)     NOT NULL,
+    `occurred_on`    DATETIME     NULL,
+    `type`           VARCHAR(200) NULL,
+    `data`           VARCHAR(500) NULL,
+    `processed_date` DATETIME     NULL,
+    PRIMARY KEY (`id`)
+);
 
 INSERT INTO `role` VALUES (1, 'ROLE_ADMIN', 'normal admin', now());
 INSERT INTO `role` VALUES (2, 'ROLE_USER', 'normal user', now());

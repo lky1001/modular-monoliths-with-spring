@@ -8,6 +8,9 @@ import com.tistory.lky1001.user.domain.users.IRoleRepository;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
 import com.tistory.lky1001.user.domain.users.Role;
 import com.tistory.lky1001.user.domain.users.User;
+import com.tistory.lky1001.user.domain.users.event.UserCreatedDomainEvent;
+import com.tistory.lky1001.user.infrastructure.outbox.IOutboxRepository;
+import com.tistory.lky1001.user.infrastructure.outbox.OutboxMessage;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.sql.DataSource;
 import java.nio.charset.Charset;
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -47,6 +51,9 @@ public class CreateUserCommandServiceTest {
 
     @Autowired
     private IUserRepository userRepository;
+
+    @Autowired
+    private IOutboxRepository outboxRepository;
 
     private CreateUserCommandService createUserCommandService;
 
@@ -97,5 +104,17 @@ public class CreateUserCommandServiceTest {
         CreateUserResult createUserResult = createUserCommandService.handle(createUserCommand);
 
         assertTrue(createUserResult.getResult());
+    }
+
+    @Test
+    public void successUserCreatedDomainEvent() {
+        CreateUserCommand createUserCommand = new CreateUserCommand("aaa@gmail.com", "12345678", "name");
+
+        createUserCommandService.handle(createUserCommand);
+
+        List<OutboxMessage> outboxMessages = outboxRepository.getAllMessage();
+
+        assertEquals(1, outboxMessages.size());
+        assertEquals(UserCreatedDomainEvent.class.getName(), outboxMessages.get(0).getType());
     }
 }
