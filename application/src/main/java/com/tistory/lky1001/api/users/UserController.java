@@ -7,6 +7,7 @@ import com.tistory.lky1001.user.application.users.getuser.GetUserResult;
 import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
+    @Secured({"ROLE_USER"})
     public ResponseEntity<UserDto> getUserProfile() {
         val getUserResult = (GetUserResult) userModule.executeQuery(new GetUserQuery());
 

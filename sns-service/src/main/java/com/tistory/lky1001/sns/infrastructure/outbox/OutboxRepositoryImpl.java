@@ -1,4 +1,4 @@
-package com.tistory.lky1001.user.infrastructure.outbox;
+package com.tistory.lky1001.sns.infrastructure.outbox;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.jdbc.core.JdbcAggregateTemplate;
@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@Repository("userOutboxRepository")
+@Repository("snsOutboxRepository")
 public class OutboxRepositoryImpl implements IOutboxRepository {
 
     private JdbcAggregateTemplate jdbcAggregateTemplate;
 
-    public OutboxRepositoryImpl(@Qualifier("userJdbcAggregateTemplate") JdbcAggregateTemplate jdbcAggregateTemplate) {
+    public OutboxRepositoryImpl(@Qualifier("snsJdbcAggregateTemplate") JdbcAggregateTemplate jdbcAggregateTemplate) {
         this.jdbcAggregateTemplate = jdbcAggregateTemplate;
     }
 

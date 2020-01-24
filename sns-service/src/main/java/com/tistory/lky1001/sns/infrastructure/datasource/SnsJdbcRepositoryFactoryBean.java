@@ -1,4 +1,4 @@
-package com.tistory.lky1001.user.infrastructure.datasource;
+package com.tistory.lky1001.sns.infrastructure.datasource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,32 +7,32 @@ import org.springframework.data.jdbc.core.convert.JdbcConverter;
 import org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 
-public class UserJdbcRepositoryFactoryBean extends JdbcRepositoryFactoryBean {
+public class SnsJdbcRepositoryFactoryBean extends JdbcRepositoryFactoryBean {
     /**
      * Creates a new {@link JdbcRepositoryFactoryBean} for the given repository interface.
      *
      * @param repositoryInterface must not be {@literal null}.
      */
-    protected UserJdbcRepositoryFactoryBean(Class repositoryInterface) {
+    protected SnsJdbcRepositoryFactoryBean(Class repositoryInterface) {
         super(repositoryInterface);
-        setTransactionManager("userTransactionManager");
+        this.setTransactionManager("snsTransactionManager");
     }
 
     @Autowired
     @Override
-    public void setConverter(@Qualifier("userJdbcConverter") JdbcConverter converter) {
+    public void setConverter(@Qualifier("snsJdbcConverter") JdbcConverter converter) {
         super.setConverter(converter);
     }
 
     @Autowired
     @Override
-    public void setJdbcOperations(@Qualifier("userOperations") NamedParameterJdbcOperations operations) {
+    public void setJdbcOperations(@Qualifier("snsOperations") NamedParameterJdbcOperations operations) {
         super.setJdbcOperations(operations);
     }
 
     @Autowired
     @Override
-    public void setDataAccessStrategy(@Qualifier("userDataAccessStrategy") DataAccessStrategy dataAccessStrategy) {
+    public void setDataAccessStrategy(@Qualifier("snsDataAccessStrategy") DataAccessStrategy dataAccessStrategy) {
         super.setDataAccessStrategy(dataAccessStrategy);
     }
 }

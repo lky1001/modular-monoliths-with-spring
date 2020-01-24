@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -33,6 +34,12 @@ public class GlobalAdvice {
     public ResponseEntity<ExceptionResponse> domainExceptionHandler(DomainValidationException e, HttpServletRequest request) {
         logger.debug(e.getMessage(), e);
         return createExceptionResponse(e.getCode(), e.getMessage(), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Void> accessDeniedException(Exception e) {
+        logger.error(e.getMessage(), e);
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Exception.class)

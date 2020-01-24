@@ -13,18 +13,17 @@ POST http://localhost:8080/oauth/token
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic c25zLXdlYi1zZXJ2aWNlOm15LXRlc3Qtc2VydmljZQ
 
-grant_type=password&username=test12345@gmail.com&password=12345678
+grant_type=password&username=test@gmail.com&password=12345678
 
 ### refresh token
 POST http://localhost:8080/oauth/token
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic c25zLXdlYi1zZXJ2aWNlOm15LXRlc3Qtc2VydmljZQ
 
-grant_type=refresh_token&refresh_token=5ba53887-91e5-4157-b8ce-f90277c72a04
+grant_type=refresh_token&refresh_token=fec263ba-77d6-4e34-ba7a-8ab43b899f9a
 
 ### get user profile
 GET http://localhost:8080/api/v1/users/me
 Content-Type: application/json
-Authorization: bearer 29284013-2baa-4ae9-a420-98f9e326d4d9
-
+Authorization: bearer cd3b814-a974-4e77-8aae-da089281e22a
 ###

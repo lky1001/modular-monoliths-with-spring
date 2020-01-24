@@ -1,16 +1,16 @@
-package com.tistory.lky1001.user.infrastructure.domainevent;
+package com.tistory.lky1001.sns.infrastructure.domainevent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tistory.lky1001.buildingblocks.domaineventlistener.IDomainEventListener;
 import com.tistory.lky1001.buildingblocks.infrastructure.outbox.IOutbox;
-import com.tistory.lky1001.user.domain.AbstractDomainEvent;
-import com.tistory.lky1001.user.infrastructure.outbox.OutboxMessage;
+import com.tistory.lky1001.sns.domain.AbstractDomainEvent;
+import com.tistory.lky1001.sns.infrastructure.outbox.OutboxMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-@Component("userDomainEventListener")
+@Component("snsDomainEventListener")
 public class DomainEventListener implements IDomainEventListener<AbstractDomainEvent> {
 
     private IOutbox<OutboxMessage> outbox;

@@ -1,4 +1,4 @@
-package com.tistory.lky1001.user.infrastructure.datasource;
+package com.tistory.lky1001.sns.infrastructure.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
 
 @Configuration
-public class DataSourceProperty {
+public class SnsDataSourceProperty {
 
-    @Bean("userDataSource")
-    @Qualifier("userDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.hikari.user")
-    public DataSource userDataSource() {
+    @Bean("snsDataSource")
+    @Qualifier("snsDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.hikari.sns")
+    public DataSource snsDataSource() {
         return DataSourceBuilder.create().type(HikariDataSource.class).build();
     }
 }
