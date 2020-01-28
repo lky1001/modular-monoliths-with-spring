@@ -9,7 +9,6 @@ import com.tistory.lky1001.user.domain.users.IUserRepository;
 import com.tistory.lky1001.user.domain.users.Role;
 import com.tistory.lky1001.user.domain.users.User;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CreateUserCommandService implements ICommandService<CreateUserCommand, CreateUserResult> {
@@ -23,7 +22,6 @@ public class CreateUserCommandService implements ICommandService<CreateUserComma
     }
 
     @Override
-    @Transactional(value = "userTransactionManager", rollbackFor = Exception.class)
     public CreateUserResult handle(CreateUserCommand command) {
         User user = this.userRepository.getByEmail(User.getEncodedEmail(command.getEmail()));
 

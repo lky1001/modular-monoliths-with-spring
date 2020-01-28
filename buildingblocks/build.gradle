@@ -29,6 +29,7 @@ jar {
 }
 
 dependencies {
+    compile 'an.awesome:pipelinr:0.5'
 }
 
 dependencyManagement {

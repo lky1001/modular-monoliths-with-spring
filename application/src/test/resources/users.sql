@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS `user`
     `updated`  DATETIME     NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `email_UNIQUE` (`email` ASC)
-);
-
+)
+    ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `role`
@@ -50,5 +50,12 @@ CREATE TABLE IF NOT EXISTS `outbox_message`
     PRIMARY KEY (`id`)
 );
 
-INSERT INTO `role` VALUES (1, 'ROLE_ADMIN', 'normal admin', now());
-INSERT INTO `role` VALUES (2, 'ROLE_USER', 'normal user', now());
+INSERT INTO `role` SELECT * FROM (SELECT 1, 'ROLE_ADMIN', 'normal admin', now()) AS tmp
+WHERE NOT EXISTS (
+        SELECT id FROM role WHERE id = 1
+    ) LIMIT 1;
+
+INSERT INTO `role` SELECT * FROM (SELECT 2, 'ROLE_USER', 'normal user', now()) AS tmp
+WHERE NOT EXISTS (
+        SELECT id FROM role WHERE id = 2
+    ) LIMIT 2;

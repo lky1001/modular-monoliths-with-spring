@@ -1,8 +1,8 @@
 package com.tistory.lky1001.user.application.contracts;
 
-public interface IUserModule<T extends IResult> {
+public interface IUserModule {
 
-    T executeCommand(ICommand<T> command);
+    <R extends IResult> R executeCommand(ICommand<R> command);
 
-    T executeQuery(IQuery<T> query);
+    <R extends IResult> R executeQuery(IQuery<R> query);
 }

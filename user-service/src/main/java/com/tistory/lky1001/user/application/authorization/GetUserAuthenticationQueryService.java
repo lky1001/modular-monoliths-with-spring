@@ -5,9 +5,7 @@ import com.tistory.lky1001.user.domain.users.IRoleRepository;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
 import com.tistory.lky1001.user.domain.users.Role;
 import com.tistory.lky1001.user.domain.users.User;
-import lombok.val;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +23,8 @@ public class GetUserAuthenticationQueryService implements IQueryService<GetUserA
     }
 
     @Override
-    @Transactional(value = "userTransactionManager", readOnly = true)
     public GetUserAuthenticationResult handle(GetUserAuthenticationQuery query) {
-        val user = userRepository.getByEmail(User.getEncodedEmail(query.getEmail()));
+        var user = userRepository.getByEmail(User.getEncodedEmail(query.getEmail()));
 
         if (user == null) {
             return new GetUserAuthenticationResult("User not found.");

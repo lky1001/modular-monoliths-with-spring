@@ -1,17 +1,10 @@
 package com.tistory.lky1001.user.application.configuration.queries;
 
+import an.awesome.pipelinr.Command;
+import com.tistory.lky1001.user.application.contracts.ICommand;
 import com.tistory.lky1001.user.application.contracts.IQuery;
 import com.tistory.lky1001.user.application.contracts.IResult;
 
-import java.lang.reflect.ParameterizedType;
+public interface IQueryService<T extends IQuery<R>, R extends IResult> extends Command.Handler<T, R> {
 
-public interface IQueryService<T extends IQuery, R extends IResult> {
-
-    default boolean isType(IQuery query) {
-        Class<T> type = (Class<T>) ((ParameterizedType) getClass().getGenericInterfaces()[0]).getActualTypeArguments()[0];
-
-        return type.isInstance(query);
-    }
-
-    R handle(T query);
 }

@@ -1,50 +1,31 @@
 package com.tistory.lky1001.user.infrastructure;
 
-import com.tistory.lky1001.user.application.configuration.commands.ICommandService;
-import com.tistory.lky1001.user.application.configuration.queries.IQueryService;
+import an.awesome.pipelinr.Pipeline;
 import com.tistory.lky1001.user.application.contracts.ICommand;
 import com.tistory.lky1001.user.application.contracts.IQuery;
 import com.tistory.lky1001.user.application.contracts.IResult;
 import com.tistory.lky1001.user.application.contracts.IUserModule;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class UserModule implements IUserModule {
 
-    private List<ICommandService> commandServices;
-    private List<IQueryService> queryServices;
+    private Pipeline userCommandPipeline;
+    private Pipeline userQueryPipeline;
 
-    @Autowired
-    public void setCommandServices(List<ICommandService> commandServices) {
-        this.commandServices = commandServices;
-    }
-
-    @Autowired
-    public void setQueryServices(List<IQueryService> queryServices) {
-        this.queryServices = queryServices;
+    public UserModule(@Qualifier("userCommandPipeline") Pipeline userCommandPipeline, @Qualifier("userQueryPipeline") Pipeline userQueryPipeline) {
+        this.userCommandPipeline = userCommandPipeline;
+        this.userQueryPipeline = userQueryPipeline;
     }
 
     @Override
-    public IResult executeCommand(ICommand command) {
-        for (ICommandService commandService : this.commandServices) {
-            if (commandService.isType(command)) {
-                return commandService.handle(command);
-            }
-        }
-
-        return null;
+    public <R extends IResult> R executeCommand(ICommand<R> command) {
+        return command.execute(userCommandPipeline);
     }
 
     @Override
-    public IResult executeQuery(IQuery query) {
-        for (IQueryService queryService : this.queryServices) {
-            if (queryService.isType(query)) {
-                return queryService.handle(query);
-            }
-        }
-        return null;
+    public <R extends IResult> R executeQuery(IQuery<R> query) {
+        return query.execute(userQueryPipeline);
     }
 }

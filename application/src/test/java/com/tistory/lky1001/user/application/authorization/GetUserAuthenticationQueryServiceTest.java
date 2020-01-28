@@ -6,7 +6,6 @@ import com.tistory.lky1001.user.application.users.createuser.CreateUserCommandSe
 import com.tistory.lky1001.user.domain.DomainRegistry;
 import com.tistory.lky1001.user.domain.users.IRoleRepository;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
-import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,15 +69,15 @@ public class GetUserAuthenticationQueryServiceTest {
 
     @Test
     public void successCreateUserAndGetUserAuthenticationTest() {
-        CreateUserCommand createUserCommand = new CreateUserCommand("test@gmail.com", "test1234", "test");
+        CreateUserCommand createUserCommand = new CreateUserCommand("test1@gmail.com", "test1234", "test");
         createUserCommandService.handle(createUserCommand);
 
-        val getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test@gmail.com"));
+        var getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test1@gmail.com"));
 
         IPasswordManager passwordManager = DomainRegistry.passwordManager();
 
         assertTrue(getUserAuthenticationResult.isAuthenticated());
-        assertEquals("test@gmail.com", getUserAuthenticationResult.getUserAuthentication().getEmail());
+        assertEquals("test1@gmail.com", getUserAuthenticationResult.getUserAuthentication().getEmail());
         assertTrue(passwordManager.matches("test1234", getUserAuthenticationResult.getUserAuthentication().getPassword()));
         assertEquals(1, getUserAuthenticationResult.getUserAuthentication().getRoles().size());
         assertEquals("ROLE_USER", getUserAuthenticationResult.getUserAuthentication().getRoles().get(0).getName());
@@ -86,10 +85,10 @@ public class GetUserAuthenticationQueryServiceTest {
 
     @Test
     public void successGetUserAuthenticationFailureTest() {
-        CreateUserCommand createUserCommand = new CreateUserCommand("test1@gmail.com", "test1234", "test");
+        CreateUserCommand createUserCommand = new CreateUserCommand("test2@gmail.com", "test1234", "test");
         createUserCommandService.handle(createUserCommand);
 
-        val getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test123@gmail.com"));
+        var getUserAuthenticationResult = getUserAuthenticationQueryService.handle(new GetUserAuthenticationQuery("test123@gmail.com"));
 
         assertFalse(getUserAuthenticationResult.isAuthenticated());
     }

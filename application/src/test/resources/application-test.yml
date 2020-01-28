@@ -6,14 +6,14 @@ spring:
         initialization-mode: always
         driver-class-name: org.h2.Driver
         username: sa
-        jdbc-url: jdbc:h2:mem:testdb
+        jdbc-url: jdbc:h2:mem:user;MODE=MYSQL
         password:
       sns:
         platform: h2
         initialization-mode: always
         driver-class-name: org.h2.Driver
         username: sa
-        jdbc-url: jdbc:h2:mem:testdb
+        jdbc-url: jdbc:h2:mem:sns;MODE=MYSQL
         password:
   h2:
     console:

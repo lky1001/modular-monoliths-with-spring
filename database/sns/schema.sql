@@ -9,7 +9,7 @@ USE `sns`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sns`.`user`
 (
-    `userId` INT         NOT NULL,
+    `userId` BIGINT         NOT NULL,
     `name`   VARCHAR(45) NULL,
     PRIMARY KEY (`userId`)
 )

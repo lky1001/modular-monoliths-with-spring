@@ -8,7 +8,6 @@ import com.tistory.lky1001.user.application.users.getuser.GetUserQuery;
 import com.tistory.lky1001.user.application.users.getuser.GetUserQueryService;
 import com.tistory.lky1001.user.domain.users.IRoleRepository;
 import com.tistory.lky1001.user.domain.users.IUserRepository;
-import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +82,7 @@ public class GetUserServiceTest {
         CreateUserCommand createUserCommand = new CreateUserCommand("aaa@gmail.com", "12345678", "name");
         createUserCommandService.handle(createUserCommand);
 
-        val getUserResult = getUserQueryService.handle(new GetUserQuery());
+        var getUserResult = getUserQueryService.handle(new GetUserQuery());
 
         assertNotNull(getUserResult.getUser());
         assertEquals(1L, getUserResult.getUser().getId());
