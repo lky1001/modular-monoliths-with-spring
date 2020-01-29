@@ -10,13 +10,23 @@ public class UserCreatedIntegrationEvent extends AbstractIntegrationEvent {
     private long userId;
     private String name;
     private Date created;
-    private Date updated;
 
-    public UserCreatedIntegrationEvent(UUID id, Date occurredOn, long userId, String name, Date created, Date updated) {
+    public UserCreatedIntegrationEvent(String id, Date occurredOn, long userId, String name, Date created) {
         super(id, occurredOn);
         this.userId = userId;
         this.name = name;
         this.created = created;
-        this.updated = updated;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getCreated() {
+        return created;
     }
 }

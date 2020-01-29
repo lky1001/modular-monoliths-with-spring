@@ -30,7 +30,7 @@ public class DomainEventListener implements IDomainEventListener<AbstractDomainE
         try {
             data = objectMapper.writeValueAsString(event);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Serialized error.");
+            throw new RuntimeException("Serialize error.");
         }
 
         outbox.add(new OutboxMessage(event.getId(), event.occurredOn(), type, data));

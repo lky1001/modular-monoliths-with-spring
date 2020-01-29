@@ -1,19 +1,18 @@
 package com.tistory.lky1001.buildingblocks.infrastructure.eventbus;
 
 import java.util.Date;
-import java.util.UUID;
 
 public abstract class AbstractIntegrationEvent {
 
-    private UUID id;
+    private String id;
     private Date occurredOn;
 
-    protected AbstractIntegrationEvent(UUID id, Date occurredOn) {
+    protected AbstractIntegrationEvent(String id, Date occurredOn) {
         this.id = id;
         this.occurredOn = occurredOn;
     }
 
-    public UUID getId() {
+    public String getId() {
         return this.id;
     }
 

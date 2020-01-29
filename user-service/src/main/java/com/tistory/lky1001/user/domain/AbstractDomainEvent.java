@@ -10,6 +10,11 @@ public abstract class AbstractDomainEvent implements IDomainEvent {
     private String id;
     private Date occurredOn;
 
+    public AbstractDomainEvent(String id) {
+        this.id = id;
+        this.occurredOn = new Date();
+    }
+
     public AbstractDomainEvent() {
         this.id = UUID.randomUUID().toString();
         this.occurredOn = new Date();
