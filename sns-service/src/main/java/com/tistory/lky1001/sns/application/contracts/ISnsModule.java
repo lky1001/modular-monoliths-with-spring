@@ -1,8 +1,8 @@
 package com.tistory.lky1001.sns.application.contracts;
 
-public interface ISnsModule<T extends IResult> {
+public interface ISnsModule {
 
-    T executeCommand(ICommand<T> command);
+    <R extends IResult> R executeCommand(ICommand<R> command);
 
-    T executeQuery(IQuery<T> query);
+    <R extends IResult> R executeQuery(IQuery<R> query);
 }

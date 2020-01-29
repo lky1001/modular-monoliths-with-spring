@@ -29,3 +29,18 @@ CREATE TABLE IF NOT EXISTS `sns`.`outbox_message`
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `sns`.`inbox_message`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `sns`.`inbox_message`
+(
+    `id`             CHAR(36)     NOT NULL,
+    `occurred_on`    DATETIME     NULL,
+    `type`           VARCHAR(200) NULL,
+    `data`           TEXT         NULL,
+    `processed_date` DATETIME     NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;

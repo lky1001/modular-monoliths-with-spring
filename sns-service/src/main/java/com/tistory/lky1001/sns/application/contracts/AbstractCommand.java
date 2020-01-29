@@ -2,7 +2,7 @@ package com.tistory.lky1001.sns.application.contracts;
 
 import java.util.UUID;
 
-public class AbstractCommand implements ICommand {
+public abstract class AbstractCommand <R extends IResult> implements ICommand<R> {
 
     private UUID id;
 

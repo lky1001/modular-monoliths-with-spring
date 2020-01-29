@@ -3,7 +3,6 @@ package com.tistory.lky1001.buildingblocks.domain.user.integrationevent;
 import com.tistory.lky1001.buildingblocks.infrastructure.eventbus.AbstractIntegrationEvent;
 
 import java.util.Date;
-import java.util.UUID;
 
 public class UserCreatedIntegrationEvent extends AbstractIntegrationEvent {
 

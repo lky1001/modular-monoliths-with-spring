@@ -63,12 +63,23 @@ public class UserStartUpConfig {
     }
 
     @Bean(name = "userOutboxJobTaskExecutor")
-    public Executor threadPoolTaskExecutor() {
+    public Executor userOutboxJobTaskExecutor() {
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setCorePoolSize(2);
         taskExecutor.setMaxPoolSize(5);
         taskExecutor.setQueueCapacity(20);
         taskExecutor.setThreadNamePrefix("UserOutboxJobTaskExecutor-");
+        taskExecutor.initialize();
+        return taskExecutor;
+    }
+
+    @Bean(name = "userInboxJobTaskExecutor")
+    public Executor userInboxJobTaskExecutor() {
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(2);
+        taskExecutor.setMaxPoolSize(5);
+        taskExecutor.setQueueCapacity(20);
+        taskExecutor.setThreadNamePrefix("UserInboxJobTaskExecutor-");
         taskExecutor.initialize();
         return taskExecutor;
     }

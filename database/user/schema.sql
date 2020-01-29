@@ -71,3 +71,17 @@ CREATE TABLE IF NOT EXISTS `users`.`outbox_message`
     PRIMARY KEY (`id`)
 )
     ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `users`.`inbox_message`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `users`.`inbox_message`
+(
+    `id`             CHAR(36)     NOT NULL,
+    `occurred_on`    DATETIME     NULL,
+    `type`           VARCHAR(200) NULL,
+    `data`           TEXT         NULL,
+    `processed_date` DATETIME     NULL,
+    PRIMARY KEY (`id`)
+)
+    ENGINE = InnoDB;
