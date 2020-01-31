@@ -20,7 +20,7 @@ public class ProcessOutboxJob {
     @Async("snsOutboxJobTaskExecutor")
     @Scheduled(fixedDelay = 5000)
     public void processOutboxJob() {
-        logger.debug("processOutboxJob thread name - {}", Thread.currentThread().getName());
+        logger.debug("{} - processOutboxJob", Thread.currentThread().getName());
         new ProcessOutboxCommand().execute(snsCommandPipeline);
     }
 }

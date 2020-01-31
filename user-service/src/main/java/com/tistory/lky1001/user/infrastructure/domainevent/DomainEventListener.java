@@ -9,6 +9,7 @@ import com.tistory.lky1001.user.infrastructure.outbox.OutboxMessage;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
 import org.springframework.transaction.event.TransactionalEventListener;
+import org.springframework.util.Assert;
 
 @Component("userDomainEventListener")
 public class DomainEventListener implements IDomainEventListener<AbstractDomainEvent> {
@@ -17,6 +18,7 @@ public class DomainEventListener implements IDomainEventListener<AbstractDomainE
     private ObjectMapper objectMapper;
 
     public DomainEventListener(IOutbox<OutboxMessage> outbox) {
+        Assert.notNull(outbox, "Outbox is required.");
         this.outbox = outbox;
         this.objectMapper = new ObjectMapper();
     }

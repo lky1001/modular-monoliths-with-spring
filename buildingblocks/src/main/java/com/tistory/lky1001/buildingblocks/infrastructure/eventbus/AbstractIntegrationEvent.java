@@ -7,6 +7,8 @@ public abstract class AbstractIntegrationEvent {
     private String id;
     private Date occurredOn;
 
+    protected AbstractIntegrationEvent() {}
+
     protected AbstractIntegrationEvent(String id, Date occurredOn) {
         this.id = id;
         this.occurredOn = occurredOn;

@@ -45,7 +45,7 @@ public class UserDataSourceConfig extends AbstractJdbcConfiguration {
 
     @Override
     @Bean("userJdbcConverter")
-    public JdbcConverter jdbcConverter(RelationalMappingContext mappingContext, @Autowired @Qualifier("userOperations") NamedParameterJdbcOperations operations,
+    public JdbcConverter jdbcConverter(RelationalMappingContext mappingContext, @Qualifier("userOperations") NamedParameterJdbcOperations operations,
             @Qualifier("userDataAccessStrategy") @Lazy RelationResolver relationResolver, JdbcCustomConversions conversions) {
 
         DefaultJdbcTypeFactory jdbcTypeFactory = new DefaultJdbcTypeFactory(operations.getJdbcOperations());
@@ -54,12 +54,12 @@ public class UserDataSourceConfig extends AbstractJdbcConfiguration {
     }
 
     @Bean("userOperations")
-    public NamedParameterJdbcOperations userOperations(@Autowired @Qualifier("userDataSource") DataSource dataSource) {
+    public NamedParameterJdbcOperations userOperations(@Qualifier("userDataSource") DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Bean("userTransactionManager")
-    public PlatformTransactionManager userTransactionManager(@Autowired @Qualifier("userDataSource") DataSource dataSource,
+    public PlatformTransactionManager userTransactionManager(@Qualifier("userDataSource") DataSource dataSource,
             ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers) {
         PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
         transactionManagerCustomizers.ifAvailable(customizers -> customizers.customize(transactionManager));

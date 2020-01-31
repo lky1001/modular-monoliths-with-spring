@@ -34,7 +34,7 @@ public abstract class AbstractOutboxMessage {
         return processedDate;
     }
 
-    public void setProcessedDate(Date processedDate) {
-        this.processedDate = processedDate;
+    public void processed() {
+        processedDate = new Date();
     }
 }

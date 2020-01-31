@@ -1,10 +1,11 @@
 package com.tistory.lky1001.buildingblocks.infrastructure.seedwork;
 
 import an.awesome.pipelinr.Notification;
+import com.tistory.lky1001.buildingblocks.domain.IDomainEvent;
 
 import java.lang.reflect.ParameterizedType;
 
-public interface INotificationService<T extends IDomainEventNotification> extends Notification.Handler<T> {
+public interface IDomainEventNotificationService<T extends IDomainEventNotification> extends Notification.Handler<T> {
 
     @Override
     default boolean matches(T notification) {

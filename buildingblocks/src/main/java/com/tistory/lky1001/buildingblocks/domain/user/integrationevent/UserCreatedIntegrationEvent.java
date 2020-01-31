@@ -10,6 +10,10 @@ public class UserCreatedIntegrationEvent extends AbstractIntegrationEvent {
     private String name;
     private Date created;
 
+    public UserCreatedIntegrationEvent() {
+        super();
+    }
+
     public UserCreatedIntegrationEvent(String id, Date occurredOn, long userId, String name, Date created) {
         super(id, occurredOn);
         this.userId = userId;

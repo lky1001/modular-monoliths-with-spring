@@ -6,9 +6,9 @@ import java.util.List;
 
 public abstract class GuavaIntegrationEventService<T extends AbstractIntegrationEvent> implements IIntegrationEventService<T> {
 
-    private List<Class<?>> events;
+    protected List<Class<? extends AbstractIntegrationEvent>> events;
 
-    protected GuavaIntegrationEventService(List<Class<?>> events) {
+    public void setIntegrationEvents(List<Class<? extends AbstractIntegrationEvent>> events) {
         this.events = events;
     }
 

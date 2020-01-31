@@ -42,15 +42,15 @@ public class UserStartUpConfig {
     }
 
     @Bean("userCommandPipeline")
-    public Pipeline userCommandPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("loggingCommandServiceMiddleware") Command.Middleware loggingCommandServiceMiddleware,
-            @Qualifier("transactionalCommandServiceMiddleware") Command.Middleware transactionalCommandServiceMiddleware) {
+    public Pipeline userCommandPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("userLoggingCommandServiceMiddleware") Command.Middleware loggingCommandServiceMiddleware,
+            @Qualifier("userTransactionalCommandServiceMiddleware") Command.Middleware transactionalCommandServiceMiddleware) {
         return new Pipelinr()
                 .with(() -> commandHandlers.stream().filter(item -> item instanceof ICommandService))
                 .with(() -> Stream.of(loggingCommandServiceMiddleware, transactionalCommandServiceMiddleware));
     }
 
     @Bean("userQueryPipeline")
-    public Pipeline userQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("transactionalQueryServiceMiddleware") Command.Middleware  transactionalQueryServiceMiddleware) {
+    public Pipeline userQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("userTransactionalQueryServiceMiddleware") Command.Middleware  transactionalQueryServiceMiddleware) {
         return new Pipelinr()
                 .with(() -> commandHandlers.stream().filter(item -> item instanceof IQueryService))
                 .with(() -> Stream.of(transactionalQueryServiceMiddleware));

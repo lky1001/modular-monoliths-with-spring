@@ -7,6 +7,7 @@ import com.tistory.lky1001.user.application.contracts.IResult;
 import com.tistory.lky1001.user.application.contracts.IUserModule;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
 @Component
 public class UserModule implements IUserModule {
@@ -15,6 +16,8 @@ public class UserModule implements IUserModule {
     private Pipeline userQueryPipeline;
 
     public UserModule(@Qualifier("userCommandPipeline") Pipeline userCommandPipeline, @Qualifier("userQueryPipeline") Pipeline userQueryPipeline) {
+        Assert.notNull(userCommandPipeline, "UserCommandPipeline is required.");
+        Assert.notNull(userQueryPipeline, "UserQueryPipeline is required.");
         this.userCommandPipeline = userCommandPipeline;
         this.userQueryPipeline = userQueryPipeline;
     }

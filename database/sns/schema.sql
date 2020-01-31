@@ -9,9 +9,11 @@ USE `sns`;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `sns`.`user`
 (
-    `userId` BIGINT         NOT NULL,
+    `user_id` BIGINT         NOT NULL,
     `name`   VARCHAR(45) NULL,
-    PRIMARY KEY (`userId`)
+    `created`  DATETIME     NULL,
+    `updated`  DATETIME     NULL,
+    PRIMARY KEY (`user_id`)
 )
     ENGINE = InnoDB;
 

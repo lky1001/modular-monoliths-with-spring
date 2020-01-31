@@ -2,6 +2,10 @@ package com.tistory.lky1001.user.application.contracts;
 
 public class VoidCommandResult implements IResult {
 
+    private static VoidCommandResult instance;
+
+    private VoidCommandResult() {}
+
     @Override
     public String toString() {
         return VoidCommandResult.class.getSimpleName();
@@ -15,5 +19,13 @@ public class VoidCommandResult implements IResult {
     @Override
     public boolean equals(Object obj) {
         return obj instanceof VoidCommandResult;
+    }
+
+    public static VoidCommandResult Void() {
+        if (instance == null) {
+            instance = new VoidCommandResult();
+        }
+
+        return instance;
     }
 }

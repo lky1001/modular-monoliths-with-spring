@@ -6,9 +6,9 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component("loggingCommandServiceMiddleware")
+@Component
 @Order(1)
-public class LoggingCommandServiceMiddleware implements Command.Middleware {
+public class UserLoggingCommandServiceMiddleware implements Command.Middleware {
 
     @Override
     public <R, C extends Command<R>> R invoke(C command, Next<R> next) {

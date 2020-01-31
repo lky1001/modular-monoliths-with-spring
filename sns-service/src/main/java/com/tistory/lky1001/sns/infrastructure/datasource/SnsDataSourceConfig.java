@@ -1,7 +1,6 @@
 package com.tistory.lky1001.sns.infrastructure.datasource;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.transaction.TransactionManagerCustomizers;
 import org.springframework.context.ApplicationContext;
@@ -45,7 +44,7 @@ public class SnsDataSourceConfig extends AbstractJdbcConfiguration {
 
     @Override
     @Bean("snsJdbcConverter")
-    public JdbcConverter jdbcConverter(RelationalMappingContext mappingContext, @Autowired @Qualifier("snsOperations") NamedParameterJdbcOperations operations,
+    public JdbcConverter jdbcConverter(RelationalMappingContext mappingContext, @Qualifier("snsOperations") NamedParameterJdbcOperations operations,
             @Qualifier("snsDataAccessStrategy") @Lazy RelationResolver relationResolver, JdbcCustomConversions conversions) {
 
         DefaultJdbcTypeFactory jdbcTypeFactory = new DefaultJdbcTypeFactory(operations.getJdbcOperations());
@@ -54,12 +53,12 @@ public class SnsDataSourceConfig extends AbstractJdbcConfiguration {
     }
 
     @Bean("snsOperations")
-    public NamedParameterJdbcOperations snsOperations(@Autowired @Qualifier("snsDataSource") DataSource dataSource) {
+    public NamedParameterJdbcOperations snsOperations(@Qualifier("snsDataSource") DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Bean("snsTransactionManager")
-    public PlatformTransactionManager userTransactionManager(@Autowired @Qualifier("snsDataSource") DataSource dataSource,
+    public PlatformTransactionManager userTransactionManager(@Qualifier("snsDataSource") DataSource dataSource,
             ObjectProvider<TransactionManagerCustomizers> transactionManagerCustomizers) {
         PlatformTransactionManager transactionManager = new DataSourceTransactionManager(dataSource);
         transactionManagerCustomizers.ifAvailable(customizers -> customizers.customize(transactionManager));

@@ -112,7 +112,7 @@ public class CreateUserCommandServiceTest {
 
         createUserCommandService.handle(createUserCommand);
 
-        List<OutboxMessage> outboxMessages = outboxRepository.getAllMessage();
+        List<OutboxMessage> outboxMessages = outboxRepository.getAllMessageToProcess();
 
         assertTrue(outboxMessages.size() > 0);
         assertEquals(UserCreatedDomainEvent.class.getName(), outboxMessages.get(0).getType());

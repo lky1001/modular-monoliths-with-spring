@@ -4,6 +4,7 @@ import an.awesome.pipelinr.Command;
 import an.awesome.pipelinr.Notification;
 import an.awesome.pipelinr.Pipeline;
 import an.awesome.pipelinr.Pipelinr;
+import com.tistory.lky1001.buildingblocks.infrastructure.seedwork.IIntegrationEventCommandService;
 import com.tistory.lky1001.sns.application.configuration.commands.ICommandService;
 import com.tistory.lky1001.sns.application.configuration.queries.IQueryService;
 import org.springframework.beans.factory.ObjectProvider;
@@ -19,18 +20,26 @@ import java.util.stream.Stream;
 public class SnsStartUpConfig {
 
     @Bean("snsCommandPipeline")
-    public Pipeline snsCommandPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("loggingCommandServiceMiddleware") Command.Middleware loggingCommandServiceMiddleware,
-            @Qualifier("transactionalCommandServiceMiddleware") Command.Middleware transactionalCommandServiceMiddleware) {
+    public Pipeline snsCommandPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("snsLoggingCommandServiceMiddleware") Command.Middleware loggingCommandServiceMiddleware,
+            @Qualifier("snsTransactionalCommandServiceMiddleware") Command.Middleware transactionalCommandServiceMiddleware) {
         return new Pipelinr()
                 .with(() -> commandHandlers.stream().filter(item -> item instanceof ICommandService))
                 .with(() -> Stream.of(loggingCommandServiceMiddleware, transactionalCommandServiceMiddleware));
     }
 
     @Bean("snsQueryPipeline")
-    public Pipeline snsQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("transactionalQueryServiceMiddleware") Command.Middleware  transactionalQueryServiceMiddleware) {
+    public Pipeline snsQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("snsTransactionalCommandServiceMiddleware") Command.Middleware  transactionalQueryServiceMiddleware) {
         return new Pipelinr()
                 .with(() -> commandHandlers.stream().filter(item -> item instanceof IQueryService))
                 .with(() -> Stream.of(transactionalQueryServiceMiddleware));
+    }
+
+    @Bean("snsIntegrationCommandPipeline")
+    public Pipeline snsIntegrationCommandPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("snsLoggingCommandServiceMiddleware") Command.Middleware loggingCommandServiceMiddleware,
+            @Qualifier("snsTransactionalCommandServiceMiddleware") Command.Middleware transactionalCommandServiceMiddleware) {
+        return new Pipelinr()
+                .with(() -> commandHandlers.stream().filter(item -> item instanceof IIntegrationEventCommandService))
+                .with(() -> Stream.of(loggingCommandServiceMiddleware, transactionalCommandServiceMiddleware));
     }
 
     @Bean("snsNotificationPipeline")

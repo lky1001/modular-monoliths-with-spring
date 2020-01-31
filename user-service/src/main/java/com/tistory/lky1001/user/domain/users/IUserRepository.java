@@ -4,12 +4,10 @@ import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Repository
-@Transactional("userTransactionManager")
 public interface IUserRepository extends CrudRepository<User, Long> {
 
     @Query("select * from user where email = :email")
