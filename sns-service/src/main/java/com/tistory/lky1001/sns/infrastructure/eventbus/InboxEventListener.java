@@ -21,7 +21,7 @@ public class InboxEventListener {
         this.snsCommandPipeline = snsCommandPipeline;
     }
 
-    @Async("userOutboxJobTaskExecutor")
+    @Async("snsOutboxJobTaskExecutor")
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void handleEvent(ProcessInboxCommand event) {
         logger.debug("{} - handleEvent {}", Thread.currentThread().getName(), event.getClass().getSimpleName());
