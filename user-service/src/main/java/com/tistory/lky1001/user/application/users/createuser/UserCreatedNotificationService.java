@@ -26,11 +26,11 @@ public class UserCreatedNotificationService implements IDomainEventNotificationS
         User user = domainEvent.getUser();
 
         this.eventsBus.publish(new UserCreatedIntegrationEvent(
-            domainEvent.getId(),
-            domainEvent.occurredOn(),
-            user.getId(),
-            user.getName(),
-            user.getCreated()
+                domainEvent.getId(),
+                domainEvent.occurredOn(),
+                user.getId(),
+                user.getName(),
+                user.getCreated()
         ));
     }
 }

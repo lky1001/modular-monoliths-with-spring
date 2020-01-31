@@ -9,6 +9,7 @@ import java.util.Base64;
 
 public class AES256Cipher implements ICipherManager {
 
+    public static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
     private String salt;
 
     private String iv = "";
@@ -20,7 +21,7 @@ public class AES256Cipher implements ICipherManager {
 
     @Override
     public String encode(String rawStr) {
-        if (rawStr == null  || "".equalsIgnoreCase(rawStr)) {
+        if (rawStr == null || "".equalsIgnoreCase(rawStr)) {
             return rawStr;
         }
 
@@ -29,7 +30,7 @@ public class AES256Cipher implements ICipherManager {
         Cipher c;
 
         try {
-            c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            c = Cipher.getInstance(TRANSFORMATION);
             c.init(Cipher.ENCRYPT_MODE, secureKey, new IvParameterSpec(iv.getBytes()));
 
             byte[] encrypted = c.doFinal(rawStr.getBytes(StandardCharsets.UTF_8));
@@ -42,7 +43,7 @@ public class AES256Cipher implements ICipherManager {
 
     @Override
     public String decode(String encodedStr) {
-        if (encodedStr == null  || "".equalsIgnoreCase(encodedStr)) {
+        if (encodedStr == null || "".equalsIgnoreCase(encodedStr)) {
             return encodedStr;
         }
 
@@ -51,7 +52,7 @@ public class AES256Cipher implements ICipherManager {
         Cipher c;
 
         try {
-            c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            c = Cipher.getInstance(TRANSFORMATION);
 
             c.init(Cipher.DECRYPT_MODE, secureKey, new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8)));
 

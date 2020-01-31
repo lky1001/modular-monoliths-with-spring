@@ -1,7 +1,6 @@
 package com.tistory.lky1001.buildingblocks.infrastructure.seedwork;
 
 import an.awesome.pipelinr.Notification;
-import com.tistory.lky1001.buildingblocks.domain.IDomainEvent;
 
 import java.lang.reflect.ParameterizedType;
 

@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS `user`
 (
-    `user_id` BIGINT         NOT NULL,
-    `name`   VARCHAR(45)    NULL,
-    `created`  DATETIME     NULL,
-    `updated`  DATETIME     NULL,
+    `user_id` BIGINT      NOT NULL,
+    `name`    VARCHAR(45) NULL,
+    `created` DATETIME    NULL,
+    `updated` DATETIME    NULL,
     PRIMARY KEY (`user_id`)
 );
 

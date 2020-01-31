@@ -4,7 +4,8 @@ public class VoidCommandResult implements IResult {
 
     private static VoidCommandResult instance;
 
-    private VoidCommandResult() {}
+    private VoidCommandResult() {
+    }
 
     @Override
     public String toString() {

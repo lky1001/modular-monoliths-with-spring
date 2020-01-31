@@ -26,4 +26,5 @@ grant_type=refresh_token&refresh_token=fec263ba-77d6-4e34-ba7a-8ab43b899f9a
 GET http://localhost:8080/api/v1/users/me
 Content-Type: application/json
 Authorization: bearer 20b98c56-176a-4ba7-a9b5-c8f99a728bf2
+
 ###

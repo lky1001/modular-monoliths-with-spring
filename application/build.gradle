@@ -38,9 +38,9 @@ bootJar {
 }
 
 dependencies {
-    implementation project (':buildingblocks')
-    implementation project (':user-service')
-    implementation project (':sns-service')
+    implementation project(':buildingblocks')
+    implementation project(':user-service')
+    implementation project(':sns-service')
 
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'

@@ -8,8 +8,7 @@ public class CreateUserCommand extends AbstractCommand<CreateUserResult> {
     private String password;
     private String name;
 
-    public
-    CreateUserCommand(String email, String password, String name) {
+    public CreateUserCommand(String email, String password, String name) {
         super();
         this.email = email;
         this.password = password;

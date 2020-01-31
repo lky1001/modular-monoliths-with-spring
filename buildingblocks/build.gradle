@@ -31,6 +31,8 @@ jar {
 dependencies {
     compile 'an.awesome:pipelinr:0.5'
     compile 'com.google.guava:guava:28.2-jre'
+
+    testImplementation 'junit:junit:4.12'
 }
 
 dependencyManagement {

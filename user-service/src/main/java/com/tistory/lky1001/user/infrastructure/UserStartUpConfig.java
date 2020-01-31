@@ -50,7 +50,7 @@ public class UserStartUpConfig {
     }
 
     @Bean("userQueryPipeline")
-    public Pipeline userQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("userTransactionalQueryServiceMiddleware") Command.Middleware  transactionalQueryServiceMiddleware) {
+    public Pipeline userQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("userTransactionalQueryServiceMiddleware") Command.Middleware transactionalQueryServiceMiddleware) {
         return new Pipelinr()
                 .with(() -> commandHandlers.stream().filter(item -> item instanceof IQueryService))
                 .with(() -> Stream.of(transactionalQueryServiceMiddleware));

@@ -60,7 +60,7 @@ public class User extends AggregateRoot<User> {
     private void protectedEmail(String email) {
         validationCheck(new EmailValidator(email));
 
-        this.setEmail(this. encodedValue(email));
+        this.setEmail(this.encodedValue(email));
     }
 
     private void setEmail(String encryptedEmail) {

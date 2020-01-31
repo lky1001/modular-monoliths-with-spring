@@ -19,6 +19,7 @@ public class DomainValidationException extends RuntimeException {
         return this.code;
     }
 
+    @Override
     public String getMessage() {
         return this.msg;
     }

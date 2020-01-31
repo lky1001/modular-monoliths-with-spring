@@ -6,7 +6,7 @@ import com.tistory.lky1001.buildingblocks.domain.IDomainEvent;
 import com.tistory.lky1001.buildingblocks.domain.IValidator;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
-public abstract class AggregateRoot<A extends AggregateRoot<A>> extends AbstractAggregateRoot implements IAggregateRoot {
+public abstract class AggregateRoot<A extends AggregateRoot<A>> extends AbstractAggregateRoot<A> implements IAggregateRoot {
 
     protected void validationCheck(IValidator validator) {
         if (!validator.isValid()) {
@@ -20,7 +20,7 @@ public abstract class AggregateRoot<A extends AggregateRoot<A>> extends Abstract
     }
 
     @Override
-    protected Object registerEvent(Object event) {
+    protected <T> T registerEvent(T event) {
         throw new RuntimeException();
     }
 }

@@ -28,7 +28,7 @@ public class SnsStartUpConfig {
     }
 
     @Bean("snsQueryPipeline")
-    public Pipeline snsQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("snsTransactionalCommandServiceMiddleware") Command.Middleware  transactionalQueryServiceMiddleware) {
+    public Pipeline snsQueryPipeline(ObjectProvider<Command.Handler> commandHandlers, @Qualifier("snsTransactionalCommandServiceMiddleware") Command.Middleware transactionalQueryServiceMiddleware) {
         return new Pipelinr()
                 .with(() -> commandHandlers.stream().filter(item -> item instanceof IQueryService))
                 .with(() -> Stream.of(transactionalQueryServiceMiddleware));
